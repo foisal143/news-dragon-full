@@ -11,7 +11,9 @@ const Navbar = () => {
       </div>
       <div className="flex gap-3">
         <img className="w-10 h-10 rounded-full" src={profile} alt="" />
-        <button className="btn-login">Login</button>
+        <Link to="/login">
+          <button className="btn-login">Login</button>
+        </Link>
       </div>
     </nav>
   );
