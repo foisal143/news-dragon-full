@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 const News = ({ news }) => {
   console.log(news);
-  const { total_view, title, rating, image_url, details, author } = news;
+  const { _id, total_view, title, rating, image_url, details, author } = news;
   return (
     <div className="card mb-5 card-compact   ">
       <div className="bg-slate-200 flex items-center px-5 h-20 mb-5">
@@ -37,7 +37,7 @@ const News = ({ news }) => {
         {details && details.length > 250 ? (
           <p>
             {details.slice(0, 250)}...
-            <Link to="/" className="text-[#FF8C47]">
+            <Link to={`/${_id}`} className="text-[#FF8C47]">
               Redmore
             </Link>
           </p>
