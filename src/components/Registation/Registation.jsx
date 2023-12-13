@@ -1,25 +1,22 @@
 import React, { useContext } from 'react';
-
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar/Navbar';
+import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import { UserContext } from '../../AuthContext/AuthContext';
 
-const Login = () => {
-  const { signInEmailPassword } = useContext(UserContext);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const handlerFormSubmit = e => {
+const Registation = () => {
+  const { createUser } = useContext(UserContext);
+
+  const handlerSubmitForm = e => {
     e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    signInEmailPassword(email, password)
-      .then(res => {
-        const logeduser = res.user;
-        console.log(logeduser);
-        navigate(location.state.pathname);
-      })
+
+    createUser(email, password)
+      .then(re => console.log(re.user))
       .catch(er => console.log(er.message));
+    form.reset();
   };
   return (
     <div className="bg-slate-200 min-h-screen">
@@ -30,18 +27,30 @@ const Login = () => {
       <div className="hero ">
         <div className="hero-content flex-col w-1/2">
           <div className="text-center ">
-            <h1 className="text-3xl font-bold">Login now!</h1>
+            <h1 className="text-3xl font-bold">Registion now!</h1>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handlerFormSubmit} className="card-body">
+            <form onSubmit={handlerSubmitForm} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="name"
+                  name="name"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  name="email"
                   type="email"
                   placeholder="email"
+                  name="email"
                   className="input input-bordered"
                   required
                 />
@@ -51,28 +60,23 @@ const Login = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  name="password"
                   type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
                 />
                 <div className="flex justify-between">
-                  <label className="label">
-                    <a href="#" className="label-text-alt link link-hover">
-                      Forgot password?
-                    </a>
-                  </label>
                   <label className="label  text-xs">
-                    New in Dragon news ?{' '}
-                    <Link className="text-blue-400 ms-1" to="/registation">
-                      Registation
+                    Already have an account ?{' '}
+                    <Link className="text-blue-400 ms-1" to="/login">
+                      Login
                     </Link>
                   </label>
                 </div>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Registation</button>
               </div>
             </form>
           </div>
@@ -82,4 +86,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registation;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import qzone1 from '../../assets/qZone1.png';
 import qzone2 from '../../assets/qZone2.png';
 import qzone3 from '../../assets/qZone3.png';
@@ -11,12 +11,26 @@ import {
   FaInstagram,
   FaTwitter,
 } from 'react-icons/fa';
+import { UserContext } from '../../AuthContext/AuthContext';
+
 const RightNav = () => {
+  const { googleSignIn } = useContext(UserContext);
+  const handlerGoogleLogin = () => {
+    googleSignIn()
+      .then(result => {
+        const logedUser = result.user;
+        console.log(logedUser);
+      })
+      .catch(er => console.log(er.message));
+  };
   return (
     <div className="">
       <h4 className="text-2xl font-semibold">Login With</h4>
       <div className="my-5">
-        <button className="w-full border flex justify-center items-center p-2 rounded-md border-sky-400 text-sky-400">
+        <button
+          onClick={handlerGoogleLogin}
+          className="w-full border flex justify-center items-center p-2 rounded-md border-sky-400 text-sky-400"
+        >
           <FaGoogle className="me-2" /> Login With Goolge
         </button>
 
