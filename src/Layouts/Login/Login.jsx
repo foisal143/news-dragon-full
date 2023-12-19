@@ -3,8 +3,11 @@ import React, { useContext } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import { UserContext } from '../../AuthContext/AuthContext';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
+  const [show, setShow] = useState(false);
   const { signInEmailPassword } = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,13 +53,21 @@ const Login = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  required
-                />
+                <div className="w-full relative">
+                  <input
+                    type={show ? 'text' : 'password'}
+                    name="password"
+                    placeholder="password"
+                    className="input w-full input-bordered"
+                    required
+                  />
+                  <span
+                    onClick={() => setShow(!show)}
+                    className="absolute right-2 cursor-pointer top-4"
+                  >
+                    {show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                  </span>
+                </div>
                 <div className="flex justify-between">
                   <label className="label">
                     <a href="#" className="label-text-alt link link-hover">

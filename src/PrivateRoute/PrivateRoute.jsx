@@ -4,7 +4,15 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const { user } = useContext(UserContext);
+  const { user, loader } = useContext(UserContext);
+  if (loader) {
+    return (
+      <div className="text-center flex justify-center items-center h-[100vh]">
+        {' '}
+        <span className="loading loading-infinity loading-md"></span>
+      </div>
+    );
+  }
   if (user) {
     return children;
   }

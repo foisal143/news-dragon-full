@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import { UserContext } from '../../AuthContext/AuthContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Registation = () => {
   const { createUser } = useContext(UserContext);
-
+  const [show, setShow] = useState(false);
   const handlerSubmitForm = e => {
     e.preventDefault();
     const form = e.target;
@@ -59,13 +60,21 @@ const Registation = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  required
-                />
+                <div className="w-full relative">
+                  <input
+                    type={show ? 'text' : 'password'}
+                    name="password"
+                    placeholder="password"
+                    className="input w-full input-bordered"
+                    required
+                  />
+                  <span
+                    onClick={() => setShow(!show)}
+                    className="absolute right-2 cursor-pointer top-4"
+                  >
+                    {show ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                  </span>
+                </div>
                 <div className="flex justify-between">
                   <label className="label  text-xs">
                     Already have an account ?{' '}

@@ -10,7 +10,8 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Main></Main>,
-    loader: () => fetch('http://localhost:5000/category'),
+    loader: () =>
+      fetch('https://dragon-news-server-jade-theta.vercel.app/category'),
     children: [
       {
         path: '/',
@@ -20,7 +21,9 @@ const router = createBrowserRouter([
         path: 'category/:id',
         element: <Home></Home>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(
+            `https://dragon-news-server-jade-theta.vercel.app/category/${params.id}`
+          ),
       },
     ],
   },
@@ -31,7 +34,8 @@ const router = createBrowserRouter([
         <NewsDetails></NewsDetails>
       </PrivateRoute>
     ),
-    loader: ({ params }) => fetch(`http://localhost:5000/${params.id}`),
+    loader: ({ params }) =>
+      fetch(`https://dragon-news-server-jade-theta.vercel.app/${params.id}`),
   },
   {
     path: 'login',
